@@ -15,8 +15,8 @@ class Server {
         })
     }
     start() {
-        this.app.listen(config.port);
-        console.log(`Server running at : ${config.port}`);
+        this.app.listen(process.env.PORT || config.port);
+        console.log(`Server running at : ${process.env.PORT || config.port}`);
     }
 }
 
