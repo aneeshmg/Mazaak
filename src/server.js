@@ -1,18 +1,11 @@
 const express = require('express');
 const config = require('./config');
+const router = require('./routes');
 
 class Server {
     constructor() {
        this.app = express();
-    }
-    setRoutes() {
-        this.app.get('/', (req,res) => {
-            res.send("Server Up!");
-        }) 
-        this.app.get('/welcome/:name', (req, res) => {
-            let message = req.params.name;
-            res.send(message);
-        })
+       router(this.app)
     }
     start() {
         this.app.listen(process.env.PORT || config.port);
