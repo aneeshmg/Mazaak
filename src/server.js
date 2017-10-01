@@ -5,7 +5,7 @@ const router = require('./routes');
 class Server {
     constructor() {
        this.app = express();
-       router(this.app)
+       router(this.app);
     }
     start() {
         this.app.listen(process.env.PORT || config.port);
