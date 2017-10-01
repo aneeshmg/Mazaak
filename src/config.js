@@ -2,13 +2,13 @@ const config = {
     DEV : {
         mongodbUrl: "ds159274.mlab.com:59274/jokes",
         mongodbUser: "app",
-        mongodbPass: "App@2017",
+        mongodbPass: "general",
         port: "3000"
     },
     PROD : {
         mongodbUrl: "ds159274.mlab.com:59274/jokes",
         mongodbUser: "app",
-        mongodbPass: "App@2017",
+        mongodbPass: "general",
         port: "3000"
     }
 }

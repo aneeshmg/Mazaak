@@ -1,6 +1,7 @@
 const express = require('express');
 const config = require('./config');
 const router = require('./routes');
+const db = require('./db');
 
 class Server {
     constructor() {
@@ -9,7 +10,10 @@ class Server {
     }
     start() {
         this.app.listen(process.env.PORT || config.port);
-        console.log(`Server running at : ${process.env.PORT || config.port}`);
+        console.log(`Server started at : ${new Date()} on port ${process.env.PORT || config.port}`)
+        db.connectToDatabase().then(() => {
+            console.log(`Now listening...`);
+        })
     }
 }
 
