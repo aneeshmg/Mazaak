@@ -4,4 +4,7 @@ module.exports = class APIResponse {
         this.type = null,
         this.tags = []
     }
+    prepare() {
+        return JSON.stringify(this);
+    }
 }

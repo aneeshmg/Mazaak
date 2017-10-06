@@ -15,12 +15,8 @@ module.exports = (app) => {
     app.get('/one-liner/:tag', (req, res) => {
         res.send(responseHandlers.genericRequestHandler("one liner", req.params.tag))   
     })
-    app.get('/small', (req, res) => {
-        res.send(responseHandlers.genericRequestHandler("small", "none"));
-    })
-    app.get('/small/:tag', (req, res) => {
-        res.send(responseHandlers.genericRequestHandler("small", req.params.tag));
-    })
+    app.get('/small', responseHandlers.getSmallJoke);
+    app.get('/small/:tag', responseHandlers.getSmallJoke);
     app.get('/medium', (req, res) => {
         res.send(responseHandlers.genericRequestHandler("medium", "none"));
     })
