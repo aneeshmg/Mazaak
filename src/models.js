@@ -1,10 +1,8 @@
-module.exports = class APIResponse {
+class APIResponse {
     constructor() {
         this.data = null,
         this.type = null,
         this.tags = []
     }
-    prepare() {
-        return JSON.stringify(this);
-    }
 }
+exports.ResponseModel = APIResponse;

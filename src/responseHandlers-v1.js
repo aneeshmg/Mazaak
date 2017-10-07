@@ -1,4 +1,4 @@
-const ResponseModel = require('./models');
+const responseModel = require('./models').ResponseModel;
 const DbPool = require('./db');
 
 const allowedTags = ["popular", "animal", "blonde", "clean", 
@@ -16,24 +16,12 @@ let getRandomTag = () => {
     return allowedTags[Math.floor(Math.random() * allowedTags.length)];
 }
 
-let genericRequestHandler = (type, tag) => {
-    let response = new ResponseModel();
-    response.data = `A ${type} joke`;
-    response.tags.push(tag);
-    response.type = type;
-    return response;
-}
-
-let checkDB = (req, res) => {
-    const db = DbPool.getDb();
-
-    db.collection('temp').aggregate([{$match: {value:"working"}},{$sample: { size: 1 }}]).toArray().then(data => {
-        console.log(data)
-        res.send(data)
-    })
+const welcome = (req, res) => {
+    res.send('Welcome to Mazaak-v1');
 }
 
 let getFromDB = (requestedType, tag) => {
+    tag = tag || getRandomTag();
     const db = DbPool.getDb();
 
     return db.collection('jokesDB').aggregate([{$match: 
@@ -57,18 +45,50 @@ let getFromDB = (requestedType, tag) => {
     })
 }
 
+let getOneLinerJoke = (req, res) => {
+    
+    if(req.params.tag) {
+        getFromDB(availableTypes.ONE_LINER, req.params.tag).then(data => res.json(data));
+    }
+    else {
+        getFromDB(availableTypes.ONE_LINER, null).then(data => res.json(data));
+    }
+}
+
 let getSmallJoke = (req, res) => {
     
     if(req.params.tag) {
         getFromDB(availableTypes.SMALL, req.params.tag).then(data => res.json(data));
     }
     else {
-        getFromDB(availableTypes.SMALL, getRandomTag()).then(data => res.json(data));
+        getFromDB(availableTypes.SMALL, null).then(data => res.json(data));
+    }
+}
+
+let getMediumJoke = (req, res) => {
+    
+    if(req.params.tag) {
+        getFromDB(availableTypes.MEDIUM, req.params.tag).then(data => res.json(data));
+    }
+    else {
+        getFromDB(availableTypes.MEDIUM, null).then(data => res.json(data));
+    }
+}
+
+let getLengthyJoke = (req, res) => {
+    
+    if(req.params.tag) {
+        getFromDB(availableTypes.LENGTHY, req.params.tag).then(data => res.json(data));
+    }
+    else {
+        getFromDB(availableTypes.LENGTHY, null).then(data => res.json(data));
     }
 }
 
 module.exports = {
-    genericRequestHandler : genericRequestHandler,
-    checkDB : checkDB,
-    getSmallJoke : getSmallJoke
+    welcome : welcome,
+    getOneLinerJoke : getOneLinerJoke,
+    getSmallJoke : getSmallJoke,
+    getMediumJoke : getMediumJoke,
+    getLengthyJoke : getLengthyJoke
 }
