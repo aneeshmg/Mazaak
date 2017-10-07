@@ -2,8 +2,7 @@ const responseHandlers = require('./responseHandlers-v1');
 const router = require('express').Router();
 
 router.get('/', responseHandlers.welcome);
-router.get('/db-check', responseHandlers.checkDB);
-router.get('/random', responseHandlers.welcome);
+router.get('/random', responseHandlers.random);
 router.get('/one-liner', responseHandlers.getOneLinerJoke);
 router.get('/one-liner/:tag', responseHandlers.getOneLinerJoke);
 router.get('/small', responseHandlers.getSmallJoke);
